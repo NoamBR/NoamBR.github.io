@@ -12,18 +12,21 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg-primary: #06060F;
-      --bg-secondary: #0A0A1A;
-      --bg-card: rgba(255,255,255,0.03);
-      --border-card: rgba(255,255,255,0.06);
-      --cyan: #00D4FF;
-      --cyan-dim: rgba(0,212,255,0.15);
-      --purple: #6366F1;
-      --purple-dim: rgba(99,102,241,0.15);
-      --gold: #C9A960;
+      --bg-primary: #0F0F1A;
+      --bg-secondary: #1A1A2E;
+      --bg-card: rgba(255,255,255,0.04);
+      --border-card: rgba(201,169,96,0.1);
+      --cyan: #C9A960;
+      --cyan-dim: rgba(201,169,96,0.15);
+      --purple: #1E3A8A;
+      --purple-dim: rgba(30,58,138,0.2);
+      --green: #10B981;
+      --green-dim: rgba(16,185,129,0.15);
+      --amber: #E8C36A;
+      --amber-dim: rgba(232,195,106,0.15);
       --text-primary: #F1F5F9;
-      --text-secondary: #94A3B8;
-      --text-muted: #64748B;
+      --text-secondary: #B0A890;
+      --text-muted: #8A7F6A;
     }
 
     body {
@@ -39,8 +42,8 @@
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background-image:
-        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(201,169,96,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,169,96,0.04) 1px, transparent 1px);
       background-size: 60px 60px;
       z-index: 0;
       pointer-events: none;
@@ -69,7 +72,7 @@
     }
     .orb-3 {
       width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(0,212,255,0.08), transparent 70%);
+      background: radial-gradient(circle, rgba(201,169,96,0.08), transparent 70%);
       top: 50%; right: 10%;
       animation: orbFloat3 18s ease-in-out infinite;
     }
@@ -163,27 +166,26 @@
       animation: pulse 2s ease-in-out infinite;
     }
     @keyframes pulse {
-      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,212,255,0.4); }
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(201,169,96,0.4); }
       50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(0,212,255,0); }
     }
-
     .hero h1 {
-      font-size: clamp(40px, 7vw, 80px);
+      font-size: clamp(36px, 6vw, 72px);
       font-weight: 900;
       line-height: 1.1;
       margin-bottom: 24px;
       animation: fadeInUp 0.8s ease-out 0.1s both;
     }
     .hero h1 .gradient-text {
-      background: linear-gradient(135deg, var(--cyan), #38BDF8, var(--purple));
+      background: linear-gradient(135deg, var(--cyan), #D4B96E, var(--purple));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     .hero-subtitle {
-      font-size: clamp(16px, 2.5vw, 22px);
+      font-size: clamp(16px, 2.5vw, 20px);
       color: var(--text-secondary);
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto 40px;
       animation: fadeInUp 0.8s ease-out 0.2s both;
     }
@@ -206,11 +208,11 @@
       font-size: 16px;
       text-decoration: none;
       transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 0 30px rgba(0,212,255,0.2);
+      box-shadow: 0 0 30px rgba(201,169,96,0.2);
     }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 50px rgba(0,212,255,0.35);
+      box-shadow: 0 0 50px rgba(201,169,96,0.35);
     }
     .btn-secondary {
       display: inline-flex;
@@ -228,8 +230,8 @@
       transition: border-color 0.3s, background 0.3s;
     }
     .btn-secondary:hover {
-      border-color: rgba(0,212,255,0.3);
-      background: rgba(0,212,255,0.05);
+      border-color: rgba(201,169,96,0.3);
+      background: rgba(201,169,96,0.05);
     }
 
     @keyframes fadeInUp {
@@ -238,28 +240,38 @@
     }
 
     /* === STATS BAR === */
-    .stats {
+    .stats-bar {
       position: relative;
       z-index: 1;
-      display: flex;
-      justify-content: center;
-      gap: 48px;
-      flex-wrap: wrap;
-      padding: 0 24px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+    .stats-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border-card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border-card);
     }
     .stat {
+      background: var(--bg-primary);
       text-align: center;
+      padding: 32px 16px;
     }
     .stat-value {
-      font-size: 42px;
+      font-size: 36px;
       font-weight: 900;
       background: linear-gradient(135deg, var(--cyan), var(--purple));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      margin-bottom: 4px;
     }
     .stat-label {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
       font-weight: 500;
     }
@@ -288,6 +300,9 @@
       border-radius: 100px;
       margin-bottom: 16px;
     }
+    .section-tag.purple { color: var(--purple); background: var(--purple-dim); }
+    .section-tag.green { color: var(--green); background: var(--green-dim); }
+    .section-tag.amber { color: var(--amber); background: var(--amber-dim); }
     .section-title {
       font-size: clamp(28px, 4vw, 42px);
       font-weight: 800;
@@ -297,7 +312,7 @@
     .section-desc {
       font-size: 17px;
       color: var(--text-secondary);
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto;
     }
 
@@ -317,9 +332,9 @@
       transition: border-color 0.4s, transform 0.3s, box-shadow 0.4s;
     }
     .bento-card:hover {
-      border-color: rgba(0,212,255,0.2);
+      border-color: rgba(201,169,96,0.2);
       transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(0,212,255,0.05);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(201,169,96,0.05);
     }
     .bento-card::before {
       content: '';
@@ -331,7 +346,6 @@
       transition: opacity 0.4s;
     }
     .bento-card:hover::before { opacity: 0.6; }
-
     .bento-card .icon-wrap {
       width: 52px; height: 52px;
       border-radius: 14px;
@@ -340,11 +354,11 @@
       justify-content: center;
       margin-bottom: 20px;
       font-size: 24px;
-      position: relative;
     }
     .icon-cyan { background: var(--cyan-dim); }
     .icon-purple { background: var(--purple-dim); }
-
+    .icon-green { background: var(--green-dim); }
+    .icon-amber { background: var(--amber-dim); }
     .bento-card h3 {
       font-size: 18px;
       font-weight: 700;
@@ -354,75 +368,105 @@
     .bento-card p {
       font-size: 14px;
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.8;
     }
-
-    /* Large featured card */
+    .bento-card .feature-list {
+      list-style: none;
+      margin-top: 12px;
+      padding: 0;
+    }
+    .bento-card .feature-list li {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .bento-card .feature-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      flex-shrink: 0;
+    }
     .bento-card.featured {
       grid-column: span 2;
-      background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(99,102,241,0.05));
+      background: linear-gradient(135deg, rgba(201,169,96,0.05), rgba(30,58,138,0.08));
       border-color: rgba(0,212,255,0.1);
     }
 
-    /* === ABOUT SECTION === */
-    .about-grid {
+    /* === HOW IT WORKS === */
+    .steps-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      counter-reset: step;
+    }
+    .step-card {
+      text-align: center;
+      padding: 40px 24px;
+      position: relative;
+    }
+    .step-number {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      display: flex;
       align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 24px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--cyan-dim), var(--purple-dim));
+      border: 1px solid rgba(201,169,96,0.2);
+      color: var(--cyan);
     }
-    .about-content h2 {
-      font-size: clamp(28px, 4vw, 38px);
-      font-weight: 800;
-      margin-bottom: 20px;
-      line-height: 1.2;
+    .step-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
-    .about-content p {
-      color: var(--text-secondary);
-      font-size: 16px;
+    .step-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+    .step-connector {
+      display: none;
+    }
+
+    /* === WHO IS IT FOR === */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .audience-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .audience-card:hover {
+      border-color: rgba(201,169,96,0.15);
+      transform: translateY(-2px);
+    }
+    .audience-card .emoji {
+      font-size: 40px;
       margin-bottom: 16px;
+      display: block;
     }
-    .about-visual {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .audience-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
-    .about-visual .glow-ring {
-      width: 300px; height: 300px;
-      border-radius: 50%;
-      border: 1px solid rgba(0,212,255,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      animation: ringPulse 4s ease-in-out infinite;
-    }
-    .about-visual .glow-ring::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, transparent, var(--cyan), transparent, var(--purple), transparent);
-      opacity: 0.3;
-      animation: ringRotate 8s linear infinite;
-    }
-    .about-visual .inner-circle {
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,212,255,0.1), transparent);
-      border: 1px solid rgba(0,212,255,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 60px;
-      position: relative;
-      z-index: 1;
-    }
-    @keyframes ringRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes ringPulse {
-      0%, 100% { box-shadow: 0 0 40px rgba(0,212,255,0.05); }
-      50% { box-shadow: 0 0 80px rgba(0,212,255,0.12); }
+    .audience-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
     }
 
     /* === GOOGLE SECTION === */
@@ -433,7 +477,6 @@
       padding: 48px;
       max-width: 800px;
       margin: 0 auto;
-      text-align: center;
       position: relative;
       overflow: hidden;
     }
@@ -444,23 +487,87 @@
       height: 2px;
       background: linear-gradient(90deg, var(--cyan), var(--purple), var(--cyan));
     }
-    .google-section h2 {
-      font-size: 28px;
-      font-weight: 800;
-      margin-bottom: 20px;
+    .google-inner {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 32px;
+      align-items: start;
     }
-    .google-section p {
+    .google-icon-wrap {
+      width: 72px; height: 72px;
+      border-radius: 18px;
+      background: var(--green-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    .google-content h2 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .google-content p {
       color: var(--text-secondary);
       font-size: 15px;
       margin-bottom: 12px;
-      max-width: 600px;
+      line-height: 1.8;
+    }
+    .privacy-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .privacy-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green);
+      background: var(--green-dim);
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    /* === CTA SECTION === */
+    .cta-section {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 100px 24px;
+    }
+    .cta-box {
+      max-width: 700px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(201,169,96,0.08), rgba(30,58,138,0.1));
+      border: 1px solid rgba(201,169,96,0.15);
+      border-radius: 28px;
+      padding: 64px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
+    }
+    .cta-box h2 {
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .cta-box p {
+      color: var(--text-secondary);
+      font-size: 17px;
+      margin-bottom: 32px;
+      max-width: 500px;
       margin-left: auto;
       margin-right: auto;
-    }
-    .google-icon {
-      font-size: 48px;
-      margin-bottom: 20px;
-      display: block;
     }
 
     /* === FOOTER === */
@@ -468,9 +575,17 @@
       position: relative;
       z-index: 1;
       border-top: 1px solid var(--border-card);
-      padding: 40px 24px;
-      text-align: center;
+      padding: 48px 24px;
     }
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: start;
+    }
+    .footer-brand-section {}
     .footer-brand {
       font-size: 18px;
       font-weight: 800;
@@ -478,13 +593,15 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
+    }
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
     }
     .footer-links {
       display: flex;
-      justify-content: center;
       gap: 24px;
-      margin-bottom: 20px;
       flex-wrap: wrap;
     }
     .footer-links a {
@@ -495,33 +612,43 @@
       transition: color 0.3s;
     }
     .footer-links a:hover { color: var(--cyan); }
+    .footer-bottom {
+      max-width: 900px;
+      margin: 24px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-card);
+      text-align: center;
+    }
     .footer-copy {
       color: var(--text-muted);
       font-size: 13px;
     }
-    .footer-divider {
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      margin: 20px auto;
-      border-radius: 2px;
-    }
 
     /* === RESPONSIVE === */
+    @media (max-width: 900px) {
+      .audience-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 768px) {
       .bento-grid { grid-template-columns: 1fr; }
       .bento-card.featured { grid-column: span 1; }
-      .about-grid { grid-template-columns: 1fr; text-align: center; }
-      .about-visual { margin-bottom: 32px; order: -1; }
-      .stats { gap: 32px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 16px; }
+      .audience-grid { grid-template-columns: 1fr 1fr; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .google-inner { grid-template-columns: 1fr; text-align: center; }
+      .google-icon-wrap { margin: 0 auto; }
+      .privacy-badges { justify-content: center; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-links { justify-content: center; }
       .nav { padding: 12px 16px; }
       .nav-links { gap: 12px; }
-      .google-section { padding: 32px 24px; }
       .hero { padding: 100px 16px 60px; }
+      .cta-box { padding: 48px 24px; }
     }
     @media (max-width: 480px) {
       .nav-links .hide-mobile { display: none; }
       .hero-buttons { flex-direction: column; align-items: center; }
+      .audience-grid { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -538,8 +665,9 @@
   <div class="nav-brand">Nexus - Management Business</div>
   <div class="nav-links">
     <a href="#features" class="hide-mobile">יכולות</a>
-    <a href="#about" class="hide-mobile">אודות</a>
-    <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn" class="nav-cta">כניסה</a>
+    <a href="#how" class="hide-mobile">איך זה עובד</a>
+    <a href="#who" class="hide-mobile">למי זה מתאים</a>
+    <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn" class="nav-cta">כניסה לאפליקציה</a>
   </div>
 </nav>
 
@@ -547,107 +675,201 @@
 <section class="hero">
   <div class="hero-badge">
     <span class="dot"></span>
-    מונע על ידי בינה מלאכותית
+    מונע על ידי בינה מלאכותית מתקדמת
   </div>
   <h1>
     <span class="gradient-text">Nexus - Management Business</span><br>
-    ניהול עסקים חכם
+    ניהול עסקים חכם לדור הבא
   </h1>
-  <p class="hero-subtitle">פלטפורמה מתקדמת לניהול עסקים בישראל. חשבוניות, עובדים, עלויות מזון, דוחות ועוד — הכל ממקום אחד עם כוח ה-AI.</p>
+  <p class="hero-subtitle">הפלטפורמה המתקדמת ביותר לניהול עסקים בישראל. חשבוניות, עובדים, עלויות מזון, לקוחות, דוחות ועוד הרבה יותר — הכל ממקום אחד, עם כוח הבינה המלאכותית שעובד בשבילך.</p>
   <div class="hero-buttons">
-    <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn" class="btn-primary">התחל עכשיו &larr;</a>
-    <a href="#features" class="btn-secondary">גלה את היכולות</a>
+    <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn" class="btn-primary">התחל בחינם &larr;</a>
+    <a href="#features" class="btn-secondary">גלה את כל היכולות</a>
   </div>
 </section>
 
 <!-- Stats -->
-<div class="stats">
-  <div class="stat">
-    <div class="stat-value">AI</div>
-    <div class="stat-label">ניתוח חשבוניות אוטומטי</div>
-  </div>
-  <div class="stat">
-    <div class="stat-value">24/7</div>
-    <div class="stat-label">גישה מכל מקום</div>
-  </div>
-  <div class="stat">
-    <div class="stat-value">100%</div>
-    <div class="stat-label">מותאם לישראל</div>
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-value">AI</div>
+      <div class="stat-label">ניתוח אוטומטי</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">24/7</div>
+      <div class="stat-label">גישה מכל מקום</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">18%</div>
+      <div class="stat-label">חישוב מע"מ מדויק</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">מותאם לישראל</div>
+    </div>
   </div>
 </div>
 
 <!-- Features -->
 <section class="section" id="features">
   <div class="section-header">
-    <div class="section-tag">יכולות</div>
-    <h2 class="section-title">כל מה שצריך לניהול העסק</h2>
-    <p class="section-desc">כלים חכמים שחוסכים זמן ומייעלים את העבודה היומיומית</p>
+    <div class="section-tag">יכולות מתקדמות</div>
+    <h2 class="section-title">כל הכלים שצריך, במקום אחד</h2>
+    <p class="section-desc">מערכת שלמה לניהול העסק שלך — מחשבוניות ועד ניהול עובדים, הכל מותאם לשוק הישראלי ומופעל על ידי AI</p>
   </div>
 
   <div class="bento-grid">
+    <!-- AI Invoice - Featured -->
     <div class="bento-card featured">
       <div class="icon-wrap icon-cyan">&#x1F9E0;</div>
-      <h3>ניתוח חשבוניות AI</h3>
-      <p>העלה תמונה של חשבונית ספק והמערכת תנתח אותה אוטומטית — ספק, סכום, פריטים ומחירים. טכנולוגיית בינה מלאכותית מתקדמת שחוסכת שעות של עבודה ידנית.</p>
+      <h3>ניתוח חשבוניות עם AI</h3>
+      <p>צלם תמונה של חשבונית ספק או קבלה, והמערכת תנתח אותה אוטומטית תוך שניות. בינה מלאכותית מתקדמת שמזהה את כל הפרטים — שם ספק, תאריך, סכום כולל, פריטים בודדים ומחירים. חיסכון של שעות עבודה ידנית בכל חודש.</p>
+      <ul class="feature-list">
+        <li>זיהוי אוטומטי של ספק, סכום ופריטים</li>
+        <li>תמיכה בצילום, העלאת קובץ ו-PDF</li>
+        <li>חישוב מע"מ 18% אוטומטי</li>
+        <li>שמירת היסטוריית חשבוניות מלאה</li>
+      </ul>
     </div>
+
+    <!-- Employees -->
     <div class="bento-card">
       <div class="icon-wrap icon-purple">&#x1F465;</div>
-      <h3>ניהול עובדים</h3>
-      <p>ניהול משמרות, חישוב שכר, מעקב שעות עבודה ומשימות עובדים.</p>
+      <h3>ניהול עובדים ומשמרות</h3>
+      <p>מעקב מלא אחר הצוות שלך — סידור משמרות, חישוב שעות עבודה, מעקב אחר משימות ומטלות. חישוב שכר אוטומטי לפי שעות ותנאי העסקה.</p>
+      <ul class="feature-list">
+        <li>סידור עבודה וניהול משמרות</li>
+        <li>חישוב שכר אוטומטי</li>
+        <li>הקצאת משימות לעובדים</li>
+      </ul>
     </div>
+
+    <!-- Food Cost -->
     <div class="bento-card">
-      <div class="icon-wrap icon-cyan">&#x1F4CA;</div>
-      <h3>עלות מזון</h3>
-      <p>חישוב עלויות מזון, מרווחים ורווחיות לכל מנה בתפריט.</p>
+      <div class="icon-wrap icon-green">&#x1F4CA;</div>
+      <h3>עלות מזון ורווחיות</h3>
+      <p>חישוב מדויק של עלויות מזון לכל מנה בתפריט. מעקב אחר מרווחים, השוואת מחירי ספקים ואופטימיזציה של רווחיות.</p>
+      <ul class="feature-list">
+        <li>פירוט עלויות לכל מנה</li>
+        <li>חישוב אחוז רווחיות</li>
+        <li>עדכון אוטומטי ממחירי ספקים</li>
+      </ul>
     </div>
+
+    <!-- Z Reports -->
     <div class="bento-card">
-      <div class="icon-wrap icon-purple">&#x1F4C5;</div>
-      <h3>דוחות Z</h3>
-      <p>העלאה ומעקב אחר דוחות Z יומיים עם בחירת תאריך.</p>
+      <div class="icon-wrap icon-amber">&#x1F4C5;</div>
+      <h3>דוחות Z יומיים</h3>
+      <p>העלאה וניהול של דוחות Z מהקופה הרושמת. מעקב אחר הכנסות יומיות, השוואה לתקופות קודמות, וניתוח מגמות.</p>
+      <ul class="feature-list">
+        <li>העלאה עם בחירת תאריך</li>
+        <li>גרפים והשוואות תקופתיות</li>
+        <li>סיכום הכנסות חודשי</li>
+      </ul>
     </div>
+
+    <!-- Gmail Import - Featured -->
     <div class="bento-card featured">
       <div class="icon-wrap icon-cyan">&#x1F4E7;</div>
-      <h3>ייבוא מ-Gmail</h3>
-      <p>חיבור לחשבון Gmail וייבוא אוטומטי של חשבוניות מהמייל. המערכת סורקת את תיבת הדואר שלך, מזהה חשבוניות וקבלות, ומייבאת אותן אוטומטית.</p>
+      <h3>ייבוא אוטומטי מ-Gmail</h3>
+      <p>חבר את חשבון ה-Gmail שלך ותן למערכת לעבוד. הבינה המלאכותית סורקת את תיבת הדואר, מזהה חשבוניות וקבלות שהתקבלו מספקים, ומייבאת אותן ישירות למערכת — ללא מגע אנושי.</p>
+      <ul class="feature-list">
+        <li>סריקה אוטומטית של הדואר הנכנס</li>
+        <li>זיהוי חכם של חשבוניות וקבלות</li>
+        <li>ייבוא ומיון אוטומטי לפי ספק</li>
+        <li>גישה לקריאה בלבד — שום דבר לא נמחק או נשלח</li>
+      </ul>
     </div>
+
+    <!-- Customers -->
     <div class="bento-card">
       <div class="icon-wrap icon-purple">&#x1F4B0;</div>
-      <h3>ניהול לקוחות</h3>
-      <p>מעקב אחר לקוחות, הזמנות, הצעות מחיר וחשבוניות.</p>
+      <h3>ניהול לקוחות והזמנות</h3>
+      <p>מעקב מלא אחר בסיס הלקוחות שלך. ניהול הזמנות, יצירת הצעות מחיר וחשבוניות מס, ושמירת היסטוריית עסקאות.</p>
+      <ul class="feature-list">
+        <li>כרטיס לקוח עם היסטוריה מלאה</li>
+        <li>הצעות מחיר וחשבוניות מס</li>
+        <li>מעקב אחר תשלומים</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- About -->
-<section class="section" id="about">
-  <div class="about-grid">
-    <div class="about-visual">
-      <div class="glow-ring">
-        <div class="inner-circle">
-          <!-- Inline SVG mini-logo -->
-          <svg width="60" height="60" viewBox="0 0 1024 1024" fill="none">
-            <circle cx="512" cy="512" r="52" fill="url(#hg)"/>
-            <circle cx="512" cy="220" r="20" fill="#00D4FF"/>
-            <circle cx="760" cy="360" r="16" fill="#6366F1"/>
-            <circle cx="700" cy="720" r="18" fill="#00D4FF"/>
-            <circle cx="320" cy="720" r="16" fill="#6366F1"/>
-            <circle cx="260" cy="360" r="14" fill="#00D4FF"/>
-            <line x1="512" y1="512" x2="512" y2="220" stroke="#00D4FF" stroke-opacity="0.4" stroke-width="6"/>
-            <line x1="512" y1="512" x2="760" y2="360" stroke="#00D4FF" stroke-opacity="0.4" stroke-width="6"/>
-            <line x1="512" y1="512" x2="700" y2="720" stroke="#00D4FF" stroke-opacity="0.4" stroke-width="6"/>
-            <line x1="512" y1="512" x2="320" y2="720" stroke="#00D4FF" stroke-opacity="0.4" stroke-width="6"/>
-            <line x1="512" y1="512" x2="260" y2="360" stroke="#00D4FF" stroke-opacity="0.4" stroke-width="6"/>
-            <circle cx="512" cy="512" r="16" fill="#fff" opacity="0.9"/>
-            <defs><radialGradient id="hg"><stop offset="0%" stop-color="#fff"/><stop offset="40%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#0088CC"/></radialGradient></defs>
-          </svg>
-        </div>
-      </div>
+<!-- How It Works -->
+<section class="section" id="how">
+  <div class="section-header">
+    <div class="section-tag purple">איך זה עובד</div>
+    <h2 class="section-title">מתחילים בשלושה צעדים פשוטים</h2>
+    <p class="section-desc">ההרשמה מהירה והשימוש אינטואיטיבי — תוך דקות תתחיל לנהל את העסק שלך ברמה אחרת</p>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-number">1</div>
+      <h3>הרשמה והגדרת העסק</h3>
+      <p>צור חשבון בחינם, הגדר את פרטי העסק שלך — שם, סוג העסק, כתובת ופרטי מע"מ. ההגדרה לוקחת פחות מדקה.</p>
     </div>
-    <div class="about-content">
-      <h2>מה זה<br><span style="background: linear-gradient(135deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Nexus - Management Business</span>?</h2>
-      <p>Nexus - Management Business היא אפליקציית ניהול עסקים מתקדמת המיועדת לבעלי מסעדות, בתי קפה, קייטרינג ועסקים קטנים בישראל.</p>
-      <p>האפליקציה מאפשרת ניהול חשבוניות, עובדים, משימות, עלויות מזון ועוד — הכל ממקום אחד.</p>
-      <p>האפליקציה משתמשת בטכנולוגיית AI לניתוח אוטומטי של חשבוניות ספקים, חישוב עלויות מזון, וניהול משמרות עובדים.</p>
+    <div class="step-card">
+      <div class="step-number">2</div>
+      <h3>חבר את המערכות שלך</h3>
+      <p>חבר את חשבון ה-Gmail לייבוא אוטומטי של חשבוניות, הוסף עובדים, הגדר תפריט ומנות. המערכת מתאימה את עצמה לסוג העסק שלך.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">3</div>
+      <h3>תן ל-AI לעבוד בשבילך</h3>
+      <p>מרגע זה, המערכת עובדת בשבילך — מנתחת חשבוניות, מחשבת עלויות, מנהלת משמרות ומייצרת דוחות. אתה רק צריך להתמקד בניהול העסק.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Who Is It For -->
+<section class="section" id="who">
+  <div class="section-header">
+    <div class="section-tag green">למי זה מתאים</div>
+    <h2 class="section-title">נבנה במיוחד לעסקים ישראליים</h2>
+    <p class="section-desc">בין אם יש לך מסעדה קטנה או רשת של עסקים — Nexus - Management Business מתאים בדיוק בשבילך</p>
+  </div>
+
+  <div class="audience-grid">
+    <div class="audience-card">
+      <span class="emoji">&#x1F37D;&#xFE0F;</span>
+      <h3>מסעדות</h3>
+      <p>ניהול תפריט, עלויות מזון, ספקים ומשמרות — הכל במקום אחד</p>
+    </div>
+    <div class="audience-card">
+      <span class="emoji">&#x2615;</span>
+      <h3>בתי קפה</h3>
+      <p>מעקב אחר מכירות יומיות, ניהול עובדים ומלאי חומרי גלם</p>
+    </div>
+    <div class="audience-card">
+      <span class="emoji">&#x1F370;</span>
+      <h3>מאפיות וקונדיטוריות</h3>
+      <p>חישוב עלויות מדויק לכל מוצר, ניהול הזמנות וספקים</p>
+    </div>
+    <div class="audience-card">
+      <span class="emoji">&#x1F373;</span>
+      <h3>קייטרינג ואירועים</h3>
+      <p>הצעות מחיר ללקוחות, ניהול הזמנות ומעקב אחר רווחיות לכל אירוע</p>
+    </div>
+    <div class="audience-card">
+      <span class="emoji">&#x1F37A;</span>
+      <h3>ברים ופאבים</h3>
+      <p>ניהול מלאי משקאות, דוחות Z יומיים ומעקב הכנסות</p>
+    </div>
+    <div class="audience-card">
+      <span class="emoji">&#x1F69A;</span>
+      <h3>פוד טראקים</h3>
+      <p>ניהול קל ונייד — מתאים לעסק שנמצא בתנועה</p>
+    </div>
+    <div class="audience-card">
+      <span class="emoji">&#x1F6D2;</span>
+      <h3>קמעונאות</h3>
+      <p>ניהול ספקים, חשבוניות ולקוחות לכל סוג של חנות</p>
+    </div>
+    <div class="audience-card">
+      <span class="emoji">&#x1F4BC;</span>
+      <h3>עסקים קטנים</h3>
+      <p>פתרון מלא לכל עסק קטן שרוצה ניהול מסודר ומקצועי</p>
     </div>
   </div>
 </section>
@@ -655,23 +877,48 @@
 <!-- Google Section -->
 <section class="section">
   <div class="google-section">
-    <span class="google-icon">&#x1F512;</span>
-    <h2>שימוש ב-Google</h2>
-    <p>Nexus - Management Business משתמשת בחיבור לחשבון Google שלך כדי לייבא חשבוניות ספקים מהמייל. האפליקציה ניגשת רק להודעות הקשורות לחשבוניות וקבלות, ואינה שולחת הודעות או משנה את תוכן המייל שלך.</p>
-    <p>ניתן לנתק את חשבון Google בכל עת מתוך הגדרות האפליקציה.</p>
+    <div class="google-inner">
+      <div class="google-icon-wrap">&#x1F512;</div>
+      <div class="google-content">
+        <h2>פרטיות ואבטחה</h2>
+        <p>Nexus - Management Business משתמשת בחיבור לחשבון Google שלך כדי לייבא חשבוניות ספקים מהמייל. האפליקציה ניגשת <strong>רק</strong> להודעות הקשורות לחשבוניות וקבלות, ואינה שולחת הודעות או משנה את תוכן המייל שלך.</p>
+        <p>ניתן לנתק את חשבון Google בכל עת מתוך הגדרות האפליקציה. הנתונים שלך שייכים לך בלבד.</p>
+        <div class="privacy-badges">
+          <span class="privacy-badge">&#x2705; קריאה בלבד</span>
+          <span class="privacy-badge">&#x2705; ניתוק בכל עת</span>
+          <span class="privacy-badge">&#x2705; הנתונים שלך</span>
+          <span class="privacy-badge">&#x2705; מאובטח SSL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-box">
+    <h2>מוכנים לשדרג את ניהול העסק?</h2>
+    <p>הצטרפו לבעלי עסקים בישראל שכבר מנהלים את העסק שלהם בצורה חכמה יותר עם Nexus - Management Business</p>
+    <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn" class="btn-primary">התחל עכשיו — בחינם &larr;</a>
   </div>
 </section>
 
 <!-- Footer -->
 <footer class="footer">
-  <div class="footer-brand">Nexus - Management Business</div>
-  <div class="footer-links">
-    <a href="privacy.html">מדיניות פרטיות</a>
-    <a href="terms.html">תנאי שימוש</a>
-    <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn">כניסה לאפליקציה</a>
+  <div class="footer-inner">
+    <div class="footer-brand-section">
+      <div class="footer-brand">Nexus - Management Business</div>
+      <p class="footer-tagline">פלטפורמת ניהול עסקים חכמה לבעלי עסקים בישראל</p>
+    </div>
+    <div class="footer-links">
+      <a href="privacy.html">מדיניות פרטיות</a>
+      <a href="terms.html">תנאי שימוש</a>
+      <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn">כניסה לאפליקציה</a>
+    </div>
   </div>
-  <div class="footer-divider"></div>
-  <p class="footer-copy">&copy; 2025 Nexus - Management Business. כל הזכויות שמורות.</p>
+  <div class="footer-bottom">
+    <p class="footer-copy">&copy; 2025 Nexus - Management Business. כל הזכויות שמורות.</p>
+  </div>
 </footer>
 
 <!-- Smooth scroll -->
