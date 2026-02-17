@@ -5,82 +5,684 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="2wNsiVorDkFScRqd9S_PEwqrWUlFtwjpBL3AItD9Juo" />
   <title>Nexus - Management Business | ניהול עסקים חכם</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #FFFCF5; color: #1E293B; line-height: 1.6; }
-    .header { background: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%); color: #fff; padding: 60px 20px; text-align: center; }
-    .header h1 { font-size: 48px; font-weight: 800; color: #C9A960; margin-bottom: 12px; }
-    .header p { font-size: 20px; color: #CBD5E1; max-width: 600px; margin: 0 auto; }
-    .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
-    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin: 40px 0; }
-    .feature { background: #fff; border: 1px solid #F0E6D3; border-radius: 14px; padding: 24px; }
-    .feature h3 { color: #C9A960; font-size: 18px; margin-bottom: 8px; }
-    .feature p { color: #64748B; font-size: 14px; }
-    .section { margin: 40px 0; }
-    .section h2 { font-size: 28px; font-weight: 700; margin-bottom: 16px; color: #1E293B; }
-    .section p { color: #475569; font-size: 16px; margin-bottom: 12px; }
-    .footer { background: #1A1A2E; color: #94A3B8; padding: 30px 20px; text-align: center; font-size: 14px; }
-    .footer a { color: #C9A960; text-decoration: none; margin: 0 12px; }
-    .footer a:hover { text-decoration: underline; }
-    .cta { display: inline-block; background: #C9A960; color: #1A1A2E; padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 16px; text-decoration: none; margin-top: 20px; }
-    .cta:hover { background: #B8943F; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #06060F;
+      --bg-secondary: #0A0A1A;
+      --bg-card: rgba(255,255,255,0.03);
+      --border-card: rgba(255,255,255,0.06);
+      --cyan: #00D4FF;
+      --cyan-dim: rgba(0,212,255,0.15);
+      --purple: #6366F1;
+      --purple-dim: rgba(99,102,241,0.15);
+      --gold: #C9A960;
+      --text-primary: #F1F5F9;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* === ANIMATED GRID BACKGROUND === */
+    .grid-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* === FLOATING ORBS === */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--cyan-dim), transparent 70%);
+      top: -100px; right: -100px;
+      animation: orbFloat1 20s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, var(--purple-dim), transparent 70%);
+      bottom: 20%; left: -100px;
+      animation: orbFloat2 25s ease-in-out infinite;
+    }
+    .orb-3 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(0,212,255,0.08), transparent 70%);
+      top: 50%; right: 10%;
+      animation: orbFloat3 18s ease-in-out infinite;
+    }
+
+    @keyframes orbFloat1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-60px, 80px) scale(1.1); }
+      66% { transform: translate(40px, -40px) scale(0.9); }
+    }
+    @keyframes orbFloat2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(80px, -60px) scale(1.15); }
+      66% { transform: translate(-30px, 50px) scale(0.95); }
+    }
+    @keyframes orbFloat3 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-50px, -70px); }
+    }
+
+    /* === NAV === */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(6,6,15,0.7);
+      border-bottom: 1px solid var(--border-card);
+    }
+    .nav-brand {
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      transition: opacity 0.3s, transform 0.3s !important;
+    }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* === HERO === */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      backdrop-filter: blur(10px);
+      animation: fadeInUp 0.8s ease-out;
+    }
+    .hero-badge .dot {
+      width: 8px; height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,212,255,0.4); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(0,212,255,0); }
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.8s ease-out 0.1s both;
+    }
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--cyan), #38BDF8, var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle {
+      font-size: clamp(16px, 2.5vw, 22px);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #fff;
+      padding: 16px 36px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 30px rgba(0,212,255,0.2);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(0,212,255,0.35);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      color: var(--text-primary);
+      padding: 16px 36px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .btn-secondary:hover {
+      border-color: rgba(0,212,255,0.3);
+      background: rgba(0,212,255,0.05);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === STATS BAR === */
+    .stats {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      padding: 0 24px 80px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 42px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* === SECTIONS === */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .section-desc {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* === FEATURE CARDS (BENTO GRID) === */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .bento-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s, transform 0.3s, box-shadow 0.4s;
+    }
+    .bento-card:hover {
+      border-color: rgba(0,212,255,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(0,212,255,0.05);
+    }
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .bento-card:hover::before { opacity: 0.6; }
+
+    .bento-card .icon-wrap {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      position: relative;
+    }
+    .icon-cyan { background: var(--cyan-dim); }
+    .icon-purple { background: var(--purple-dim); }
+
+    .bento-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+    .bento-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Large featured card */
+    .bento-card.featured {
+      grid-column: span 2;
+      background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(99,102,241,0.05));
+      border-color: rgba(0,212,255,0.1);
+    }
+
+    /* === ABOUT SECTION === */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .about-content h2 {
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 800;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .about-content p {
+      color: var(--text-secondary);
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+    .about-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-visual .glow-ring {
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,212,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      animation: ringPulse 4s ease-in-out infinite;
+    }
+    .about-visual .glow-ring::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent, var(--cyan), transparent, var(--purple), transparent);
+      opacity: 0.3;
+      animation: ringRotate 8s linear infinite;
+    }
+    .about-visual .inner-circle {
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,212,255,0.1), transparent);
+      border: 1px solid rgba(0,212,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes ringRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes ringPulse {
+      0%, 100% { box-shadow: 0 0 40px rgba(0,212,255,0.05); }
+      50% { box-shadow: 0 0 80px rgba(0,212,255,0.12); }
+    }
+
+    /* === GOOGLE SECTION === */
+    .google-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .google-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple), var(--cyan));
+    }
+    .google-section h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    .google-section p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      margin-bottom: 12px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .google-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* === FOOTER === */
+    .footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border-card);
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .footer-brand {
+      font-size: 18px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--cyan); }
+    .footer-copy {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+    .footer-divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      margin: 20px auto;
+      border-radius: 2px;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-card.featured { grid-column: span 1; }
+      .about-grid { grid-template-columns: 1fr; text-align: center; }
+      .about-visual { margin-bottom: 32px; order: -1; }
+      .stats { gap: 32px; }
+      .nav { padding: 12px 16px; }
+      .nav-links { gap: 12px; }
+      .google-section { padding: 32px 24px; }
+      .hero { padding: 100px 16px 60px; }
+    }
+    @media (max-width: 480px) {
+      .nav-links .hide-mobile { display: none; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+    }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>Nexus - Management Business</h1>
-    <p>פלטפורמת ניהול עסקים חכמה לבעלי עסקים בישראל</p>
-    <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn" class="cta">כניסה לאפליקציה</a>
+
+<!-- Background effects -->
+<div class="grid-bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-brand">Nexus - Management Business</div>
+  <div class="nav-links">
+    <a href="#features" class="hide-mobile">יכולות</a>
+    <a href="#about" class="hide-mobile">אודות</a>
+    <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn" class="nav-cta">כניסה</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    מונע על ידי בינה מלאכותית
+  </div>
+  <h1>
+    <span class="gradient-text">Nexus - Management Business</span><br>
+    ניהול עסקים חכם
+  </h1>
+  <p class="hero-subtitle">פלטפורמה מתקדמת לניהול עסקים בישראל. חשבוניות, עובדים, עלויות מזון, דוחות ועוד — הכל ממקום אחד עם כוח ה-AI.</p>
+  <div class="hero-buttons">
+    <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn" class="btn-primary">התחל עכשיו &larr;</a>
+    <a href="#features" class="btn-secondary">גלה את היכולות</a>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-value">AI</div>
+    <div class="stat-label">ניתוח חשבוניות אוטומטי</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">24/7</div>
+    <div class="stat-label">גישה מכל מקום</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">100%</div>
+    <div class="stat-label">מותאם לישראל</div>
+  </div>
+</div>
+
+<!-- Features -->
+<section class="section" id="features">
+  <div class="section-header">
+    <div class="section-tag">יכולות</div>
+    <h2 class="section-title">כל מה שצריך לניהול העסק</h2>
+    <p class="section-desc">כלים חכמים שחוסכים זמן ומייעלים את העבודה היומיומית</p>
   </div>
 
-  <div class="container">
-    <div class="section">
-      <h2>מה זה Nexus - Management Business?</h2>
-      <p>Nexus - Management Business היא אפליקציית ניהול עסקים מתקדמת המיועדת לבעלי מסעדות, בתי קפה, קייטרינג ועסקים קטנים בישראל. האפליקציה מאפשרת ניהול חשבוניות, עובדים, משימות, עלויות מזון ועוד - הכל ממקום אחד.</p>
+  <div class="bento-grid">
+    <div class="bento-card featured">
+      <div class="icon-wrap icon-cyan">&#x1F9E0;</div>
+      <h3>ניתוח חשבוניות AI</h3>
+      <p>העלה תמונה של חשבונית ספק והמערכת תנתח אותה אוטומטית — ספק, סכום, פריטים ומחירים. טכנולוגיית בינה מלאכותית מתקדמת שחוסכת שעות של עבודה ידנית.</p>
+    </div>
+    <div class="bento-card">
+      <div class="icon-wrap icon-purple">&#x1F465;</div>
+      <h3>ניהול עובדים</h3>
+      <p>ניהול משמרות, חישוב שכר, מעקב שעות עבודה ומשימות עובדים.</p>
+    </div>
+    <div class="bento-card">
+      <div class="icon-wrap icon-cyan">&#x1F4CA;</div>
+      <h3>עלות מזון</h3>
+      <p>חישוב עלויות מזון, מרווחים ורווחיות לכל מנה בתפריט.</p>
+    </div>
+    <div class="bento-card">
+      <div class="icon-wrap icon-purple">&#x1F4C5;</div>
+      <h3>דוחות Z</h3>
+      <p>העלאה ומעקב אחר דוחות Z יומיים עם בחירת תאריך.</p>
+    </div>
+    <div class="bento-card featured">
+      <div class="icon-wrap icon-cyan">&#x1F4E7;</div>
+      <h3>ייבוא מ-Gmail</h3>
+      <p>חיבור לחשבון Gmail וייבוא אוטומטי של חשבוניות מהמייל. המערכת סורקת את תיבת הדואר שלך, מזהה חשבוניות וקבלות, ומייבאת אותן אוטומטית.</p>
+    </div>
+    <div class="bento-card">
+      <div class="icon-wrap icon-purple">&#x1F4B0;</div>
+      <h3>ניהול לקוחות</h3>
+      <p>מעקב אחר לקוחות, הזמנות, הצעות מחיר וחשבוניות.</p>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="glow-ring">
+        <div class="inner-circle">
+          <!-- Inline SVG mini-logo -->
+          <svg width="60" height="60" viewBox="0 0 1024 1024" fill="none">
+            <circle cx="512" cy="512" r="52" fill="url(#hg)"/>
+            <circle cx="512" cy="220" r="20" fill="#00D4FF"/>
+            <circle cx="760" cy="360" r="16" fill="#6366F1"/>
+            <circle cx="700" cy="720" r="18" fill="#00D4FF"/>
+            <circle cx="320" cy="720" r="16" fill="#6366F1"/>
+            <circle cx="260" cy="360" r="14" fill="#00D4FF"/>
+            <line x1="512" y1="512" x2="512" y2="220" stroke="#00D4FF" stroke-opacity="0.4" stroke-width="6"/>
+            <line x1="512" y1="512" x2="760" y2="360" stroke="#00D4FF" stroke-opacity="0.4" stroke-width="6"/>
+            <line x1="512" y1="512" x2="700" y2="720" stroke="#00D4FF" stroke-opacity="0.4" stroke-width="6"/>
+            <line x1="512" y1="512" x2="320" y2="720" stroke="#00D4FF" stroke-opacity="0.4" stroke-width="6"/>
+            <line x1="512" y1="512" x2="260" y2="360" stroke="#00D4FF" stroke-opacity="0.4" stroke-width="6"/>
+            <circle cx="512" cy="512" r="16" fill="#fff" opacity="0.9"/>
+            <defs><radialGradient id="hg"><stop offset="0%" stop-color="#fff"/><stop offset="40%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#0088CC"/></radialGradient></defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="about-content">
+      <h2>מה זה<br><span style="background: linear-gradient(135deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Nexus - Management Business</span>?</h2>
+      <p>Nexus - Management Business היא אפליקציית ניהול עסקים מתקדמת המיועדת לבעלי מסעדות, בתי קפה, קייטרינג ועסקים קטנים בישראל.</p>
+      <p>האפליקציה מאפשרת ניהול חשבוניות, עובדים, משימות, עלויות מזון ועוד — הכל ממקום אחד.</p>
       <p>האפליקציה משתמשת בטכנולוגיית AI לניתוח אוטומטי של חשבוניות ספקים, חישוב עלויות מזון, וניהול משמרות עובדים.</p>
     </div>
-
-    <div class="features">
-      <div class="feature">
-        <h3>ניתוח חשבוניות AI</h3>
-        <p>העלה תמונה של חשבונית ספק והמערכת תנתח אותה אוטומטית - ספק, סכום, פריטים ומחירים.</p>
-      </div>
-      <div class="feature">
-        <h3>ניהול עובדים</h3>
-        <p>ניהול משמרות, חישוב שכר, מעקב שעות עבודה ומשימות עובדים.</p>
-      </div>
-      <div class="feature">
-        <h3>עלות מזון</h3>
-        <p>חישוב עלויות מזון, מרווחים ורווחיות לכל מנה בתפריט.</p>
-      </div>
-      <div class="feature">
-        <h3>דוחות Z</h3>
-        <p>העלאה ומעקב אחר דוחות Z יומיים עם בחירת תאריך.</p>
-      </div>
-      <div class="feature">
-        <h3>ייבוא מ-Gmail</h3>
-        <p>חיבור לחשבון Gmail וייבוא אוטומטי של חשבוניות מהמייל.</p>
-      </div>
-      <div class="feature">
-        <h3>ניהול לקוחות</h3>
-        <p>מעקב אחר לקוחות, הזמנות, הצעות מחיר וחשבוניות.</p>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>שימוש ב-Google</h2>
-      <p>Nexus - Management Business משתמשת בחיבור לחשבון Google שלך כדי לייבא חשבוניות ספקים מהמייל. האפליקציה ניגשת רק להודעות הקשורות לחשבוניות וקבלות, ואינה שולחת הודעות או משנה את תוכן המייל שלך.</p>
-      <p>ניתן לנתק את חשבון Google בכל עת מתוך הגדרות האפליקציה.</p>
-    </div>
   </div>
+</section>
 
-  <div class="footer">
-    <p>&copy; 2025 Nexus - Management Business. כל הזכויות שמורות.</p>
-    <p style="margin-top: 8px;">
-      <a href="privacy.html">מדיניות פרטיות</a>
-      <a href="terms.html">תנאי שימוש</a>
-      <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn">כניסה לאפליקציה</a>
-    </p>
+<!-- Google Section -->
+<section class="section">
+  <div class="google-section">
+    <span class="google-icon">&#x1F512;</span>
+    <h2>שימוש ב-Google</h2>
+    <p>Nexus - Management Business משתמשת בחיבור לחשבון Google שלך כדי לייבא חשבוניות ספקים מהמייל. האפליקציה ניגשת רק להודעות הקשורות לחשבוניות וקבלות, ואינה שולחת הודעות או משנה את תוכן המייל שלך.</p>
+    <p>ניתן לנתק את חשבון Google בכל עת מתוך הגדרות האפליקציה.</p>
   </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-brand">Nexus - Management Business</div>
+  <div class="footer-links">
+    <a href="privacy.html">מדיניות פרטיות</a>
+    <a href="terms.html">תנאי שימוש</a>
+    <a href="https://rork.com/p/2y0w8a4xnwcvlokmgeaqn">כניסה לאפליקציה</a>
+  </div>
+  <div class="footer-divider"></div>
+  <p class="footer-copy">&copy; 2025 Nexus - Management Business. כל הזכויות שמורות.</p>
+</footer>
+
+<!-- Smooth scroll -->
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
 </body>
 </html>
